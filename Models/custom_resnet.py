@@ -3,7 +3,7 @@ import torch.nn.functional as F
 
 def _get_conv_block(in_channels, out_channels, is_pool, num_layers):
     block_list = []
-    for _ in num_layers:
+    for _ in range(num_layers):
         block_list.append(nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1))
         if is_pool:
             block_list.append(nn.MaxPool2d(2, 2))
