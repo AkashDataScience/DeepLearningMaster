@@ -13,7 +13,7 @@ def GetCorrectPredCount(pPrediction, pLabels):
     """
     return pPrediction.argmax(dim=1).eq(pLabels).sum().item()
 
-def _train(model, device, train_loader, optimizer, criterion, train_losses, train_acc):
+def _train(model, device, train_loader, optimizer, scheduler, criterion, train_losses, train_acc):
     """Method to train model for one epoch 
 
     Args:
@@ -49,6 +49,7 @@ def _train(model, device, train_loader, optimizer, criterion, train_losses, trai
         # Backpropagation
         loss.backward() # Compute gradients
         optimizer.step() # Updates weights
+        scheduler.step() # Update learning rate
 
         correct += GetCorrectPredCount(pred, target) # Store correct prediction count
         processed += len(data) # Store amount of data processed
@@ -123,11 +124,11 @@ def start_training(num_epochs, model, device, train_loader, test_loader, optimiz
     for epoch in range(1, num_epochs+1):
         print(f'Epoch {epoch}')
         # Train for one epochs
-        _train(model, device, train_loader, optimizer, criterion, train_losses, train_acc)
+        _train(model, device, train_loader, optimizer, scheduler, criterion, train_losses, train_acc)
         # Test model
         _test(model, device, test_loader, criterion, test_losses, test_acc)
-        # Update learning rate
-        scheduler.step()
+        # # Update learning rate
+        # scheduler.step()
         # Print learning rate
         print(scheduler.get_last_lr())
 
