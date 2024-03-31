@@ -4,11 +4,12 @@ import torch.nn.functional as F
 def _get_conv_block(in_channels, out_channels, is_pool, num_layers):
     block_list = []
     for _ in range(num_layers):
-        block_list.append(nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1))
+        block_list.append(nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1, bias=False))
         if is_pool:
             block_list.append(nn.MaxPool2d(2, 2))
-        block_list.append(nn.BatchNorm2d(out_channels), nn.ReLU())
-        conv_block = nn.Sequential(block_list)
+        block_list.append(nn.BatchNorm2d(out_channels))
+        block_list.append(nn.ReLU())
+        conv_block = nn.Sequential(*block_list)
     return conv_block
 
 class ResBlock(nn.Module):
