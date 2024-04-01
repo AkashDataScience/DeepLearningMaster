@@ -4,6 +4,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
 
+from torch_lr_finder import LRFinder
 from DeepLearningMaster.Datasets import dataset
 
 CLASS_NAMES= ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
@@ -115,6 +116,12 @@ def get_cross_entropy_loss():
     """
     criterion = F.cross_entropy
     return criterion
+
+def get_learning_rate(model, optimizer, criterion, device, trainloader):
+    lr_finder = LRFinder(model, optimizer, criterion, device=device)
+    lr_finder.range_test(trainloader, end_lr=100, num_iter=100)
+    lr_finder.plot()
+    lr_finder.reset()
 
 def plot_accuracy_loss_graphs(train_losses, train_acc, test_losses, test_acc):
     """Method to plot loss and accuracy of training and testing
