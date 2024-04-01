@@ -123,13 +123,11 @@ def start_training(num_epochs, model, device, train_loader, test_loader, optimiz
 
     for epoch in range(1, num_epochs+1):
         print(f'Epoch {epoch}')
+        # Print learning rate
+        print(f'Current learning rate: {scheduler.get_last_lr()}')
         # Train for one epochs
         _train(model, device, train_loader, optimizer, scheduler, criterion, train_losses, train_acc)
         # Test model
         _test(model, device, test_loader, criterion, test_losses, test_acc)
-        # # Update learning rate
-        # scheduler.step()
-        # Print learning rate
-        print(scheduler.get_last_lr())
 
     return train_losses, train_acc, test_losses, test_acc

@@ -120,8 +120,9 @@ def get_cross_entropy_loss():
 def get_learning_rate(model, optimizer, criterion, device, trainloader):
     lr_finder = LRFinder(model, optimizer, criterion, device=device)
     lr_finder.range_test(trainloader, end_lr=100, num_iter=100)
-    lr_finder.plot()
+    plot, suggested_lr = lr_finder.plot()
     lr_finder.reset()
+    return suggested_lr
 
 def plot_accuracy_loss_graphs(train_losses, train_acc, test_losses, test_acc):
     """Method to plot loss and accuracy of training and testing
