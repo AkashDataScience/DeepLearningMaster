@@ -80,7 +80,7 @@ def get_ReduceLROnPlateau_scheduler(optimizer, factor, patience):
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=factor, patience=patience, verbose=True)
     return scheduler
 
-def get_OneCycleLR_scheduler(optimizer, max_lr, epochs, steps_per_epoch, max_at_epoch, div_factor):
+def get_OneCycleLR_scheduler(optimizer, max_lr, epochs, steps_per_epoch, max_at_epoch, div_factor, final_div_factor):
     """Method to get object of scheduler class. Used to update learning rate
 
     Args:
@@ -89,14 +89,16 @@ def get_OneCycleLR_scheduler(optimizer, max_lr, epochs, steps_per_epoch, max_at_
         epochs (float): Total number of epoch
         steps_per_epoch (int): Total steps in an epoch
         max_at_epoch (int): Epoch to reach maximum learning rate
-        div_factor (int): Divisive factor calculate minimum learning rate
+        div_factor (int): Divisive factor to calculate intial learning rate
+        final_div_factor (int): Divisive factor to calculate minimum learning rate
 
     Returns:
         object: Object of StepLR class to update learning rate
     """
     scheduler = optim.lr_scheduler.OneCycleLR(optimizer, max_lr=max_lr,  epochs=epochs,
                                               steps_per_epoch=steps_per_epoch, 
-                                              pct_start=max_at_epoch/epochs, div_factor=div_factor)
+                                              pct_start=max_at_epoch/epochs, div_factor=div_factor,
+                                              final_div_factor=final_div_factor)
     return scheduler
 
 def get_nll_loss():
