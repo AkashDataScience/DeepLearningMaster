@@ -39,7 +39,7 @@ def get_SGD_optimizer(model, lr, momentum):
     optimizer = optim.SGD(model.parameters(), lr=lr, momentum=momentum)
     return optimizer
 
-def get_Adam_optimizer(model, lr):
+def get_Adam_optimizer(model, lr, weight_decay):
     """Method to get object of adam optimizer. Used to update weights.
 
     Args:
@@ -49,7 +49,7 @@ def get_Adam_optimizer(model, lr):
     Returns:
         object: Object of SGD class to update weights
     """
-    optimizer = optim.Adam(model.parameters(), lr=lr)
+    optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
     return optimizer
 
 def get_StepLR_scheduler(optimizer, step_size, gamma):
