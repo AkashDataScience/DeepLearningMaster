@@ -1,8 +1,3 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 ## About The Project
@@ -16,7 +11,7 @@ Here's why:
 
 ### Built With
 
-* [![Python][Python.py]][Next-url]
+* [![Python][Python.py]][python-url]
 
 ## Getting Started
 
@@ -47,3 +42,8 @@ Please refer to [ERA V2 Session 10](https://github.com/AkashDataScience/ERA-V2/t
 
 Akash Shah - akashmshah19@gmail.com
 Project Link [ERA V2](https://github.com/AkashDataScience/ERA-V2/tree/master)
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/akash-m-shah/
+[Python.py]:https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54
+[python-url]: https://www.python.org/
