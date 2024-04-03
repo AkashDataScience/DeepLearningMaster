@@ -10,6 +10,11 @@ from DeepLearningMaster.Datasets import dataset
 CLASS_NAMES= ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
 def plot_samples(train_loader):
+    """Method to plot samples of augmented images
+
+    Args:
+        train_loader (Object): Object of data loader class to get images
+    """
     inv_transform = dataset.get_inv_transforms()
 
     figure = plt.figure(figsize=(20,20))
@@ -123,9 +128,26 @@ def get_cross_entropy_loss():
     return criterion
 
 def get_learning_rate(model, optimizer, criterion, device, trainloader):
+    """Method to find learning rate using LR finder.
+
+    Args:
+        model (Object): Object of model
+        optimizer (Object): Object of optimizer class
+        criterion (Object): Loss function
+        device (string): Type of device "cuda" or "cpu"
+        trainloader (Object): Object of dataloader class
+
+    Returns:
+        float: Learning rate suggested by lr finder
+    """
+    # Create object and perform range test
     lr_finder = LRFinder(model, optimizer, criterion, device=device)
     lr_finder.range_test(trainloader, end_lr=100, num_iter=100)
+
+    # Plot result and store suggested lr
     plot, suggested_lr = lr_finder.plot()
+
+    # Reset model and optimizer
     lr_finder.reset()
     return suggested_lr
 
@@ -153,6 +175,13 @@ def plot_accuracy_loss_graphs(train_losses, train_acc, test_losses, test_acc):
     axs[1, 1].set_title("Test Accuracy")
 
 def plot_missclassified_images(device, model, test_loader):
+    """Method to plot missclassified images
+
+    Args:
+        device (string): Type of device "cuda" or "cpu"
+        model (Object): Object of model
+        test_loader (Object): Object of dataloader class
+    """
     model.eval()
     inv_transform = dataset.get_inv_transforms()
     missclassified_image_list = []

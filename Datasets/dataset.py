@@ -7,7 +7,15 @@ from torchvision import datasets, transforms
 from albumentations.pytorch.transforms import ToTensorV2
 
 class CIFAR10Data(Dataset):
+    """Class for CIFAR10 Dataset
+    """
     def __init__(self, dataset, transforms=None) -> None:
+        """Constructor for CIFAR10Data
+
+        Args:
+            dataset (Object): CIFAR10 Data object
+            transforms (Object, optional): Object to augment data
+        """
         self.dataset = dataset
         self.transforms = transforms
     
@@ -15,6 +23,14 @@ class CIFAR10Data(Dataset):
         return len(self.dataset)
     
     def __getitem__(self, index):
+        """Method to get image and lable of CIFAR10
+
+        Args:
+            index (int): Index of item required
+
+        Returns:
+            Tensor: Image and label in tensor format
+        """
         image, label = self.dataset[index]
 
         image = np.array(image)
@@ -25,27 +41,52 @@ class CIFAR10Data(Dataset):
         return image, label
 
 def _get_train_transforms():
-    train_transforms = albumentations.Compose([albumentations.PadIfNeeded(40, 40, always_apply=True),
-                                               albumentations.RandomCrop(32, 32),
-                                               albumentations.HorizontalFlip(),
-                                               albumentations.CoarseDropout(max_holes=1, max_height=8,
-                                                                          max_width=8, min_holes=1,
-                                                                          min_height=8,
-                                                                          min_width=8,
-                                                                          fill_value=(0.49139968, 0.48215841, 0.44653091),
-                                                                          mask_fill_value = None),
-                                               albumentations.Normalize([0.49139968, 0.48215841, 0.44653091],
-                                                                      [0.24703223, 0.24348513, 0.26158784]),
-                                               ToTensorV2()])
+    """Method to get train transform
+
+    Returns:
+        Object: Object to apply image augmentations
+    """
+    train_transforms = albumentations.Compose([
+        # Add padding to image
+        albumentations.PadIfNeeded(40, 40, always_apply=True), 
+        # Randomly crop image
+        albumentations.RandomCrop(32, 32),
+        # Random horizontal flip
+        albumentations.HorizontalFlip(),
+        # Random cut out
+        albumentations.CoarseDropout(max_holes=1, max_height=8, max_width=8, min_holes=1, 
+                                     min_height=8, min_width=8,
+                                     fill_value=(0.49139968, 0.48215841, 0.44653091), 
+                                     mask_fill_value = None),
+        # Normalize
+        albumentations.Normalize([0.49139968, 0.48215841, 0.44653091], 
+                                 [0.24703223, 0.24348513, 0.26158784]),
+        # Convert to tensor
+        ToTensorV2()])
+    
     return train_transforms
 
 def _get_test_transforms():
-    test_transforms = albumentations.Compose([albumentations.Normalize([0.49139968, 0.48215841, 0.44653091],
-                                                                     [0.24703223, 0.24348513, 0.26158784]),
-                                            ToTensorV2()])
+    """Method to get test transform
+
+    Returns:
+        Object: Object to apply image augmentations
+    """
+    test_transforms = albumentations.Compose(
+        # Normalize
+        [albumentations.Normalize([0.49139968, 0.48215841, 0.44653091], 
+                                  [0.24703223, 0.24348513, 0.26158784]), 
+        # Convert to tensor                          
+        ToTensorV2()])
     return test_transforms
 
 def get_inv_transforms():
+    """Method to get transform to inverse the effect of normalization for ploting
+
+    Returns:
+        _Object: Object to apply image augmentations
+    """
+    # Normalize image
     inv_transforms = albumentations.Normalize([-0.48215841/0.24348513, -0.44653091/0.26158784, -0.49139968/0.24703223],
                                               [1/0.24348513, 1/0.26158784, 1/0.24703223], max_pixel_value=1.0)
     return inv_transforms
