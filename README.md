@@ -40,8 +40,8 @@ Please refer to [ERA V2 Session 10](https://github.com/AkashDataScience/ERA-V2/t
 
 ## Contact
 
-Akash Shah - akashmshah19@gmail.com
-Project Link [ERA V2](https://github.com/AkashDataScience/ERA-V2/tree/master)
+Akash Shah - akashmshah19@gmail.com  
+Project Link - [ERA V2](https://github.com/AkashDataScience/ERA-V2/tree/master)
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/akash-m-shah/
